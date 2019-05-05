@@ -1,15 +1,11 @@
 <template>
   <div class="container">
-      <div class="container__books" v-for="book in books" :key="book.id">
-        <div class="container__books__current-book">
-          <div class="container__books__image">
-            <img :src="book.imageUr" alt="Тут картинка">
-          </div>
-          <div class="container__books__title">{{ book.title }}</div>
-          <div class="container__books__cost">Цена: {{ book.cost }} &#8381;</div>
-          <div class="container__books__buy">
-            <button @click.prevent="addToCart(book)">BUY</button>
-          </div>
+      <div class="books" v-for="book in books" :key="book.id">
+        <div class="book">
+          <img :src="book.imageUrl" alt="Тут картинка" class="book__image">
+          <p class="book__title">{{ book.title }}</p>
+          <p class="book__cost">Цена: {{ book.cost }} &#8381;</p>
+          <button @click.prevent="addToCart(book)" class="book__button button__buy">BUY</button>
         </div>
       </div>
   </div>
@@ -20,6 +16,7 @@ export default {
   name: 'product-list',
   computed: {
     books() {
+      console.log(this.$store.getters.GET_BOOKS)
       return this.$store.getters.GET_BOOKS
     }
   },
@@ -41,41 +38,53 @@ export default {
   grid-template-columns: repeat(3, minmax(160px, 1fr));
   gap: .5vw;
 }
-.container__books{
+.book{
   width: 30vw;
-  margin: 0 auto;
+  margin: 1vh auto;
+  display: grid;
+  align-content: center;
+  transition: all .4s ease;
 }
-/* .container__books__image{
-  width: 90%;
-} */
-.container__books__image image{
-  width: 60%;
-  height: 60%;
+.book__image{
+  margin: 0 auto 1vh auto;
+  padding-top: 1vh;
 }
-.container__books__title{
+.book__title{
   width: 90%;
-  margin: 0 auto;
+  margin: 0 auto 1vh auto;
   text-align: center;
   font: 400 1.2em Arial;
 }
-.container__books__cost{
+.book__cost{
   width: 90%;
-  margin: 0 auto;
+  margin: 0 auto 1vh auto;
   text-align: center;
   text-transform: uppercase;
   font: 400 1.1em Arial;
 }
-.container__books__buy{
+.book__button{
   width: 90%;
   margin: 1vh auto;
   text-align: center;
 }
-.container__books__buy button{
+.button__buy{
   border-radius: 5px;
   width: 30%;
-  height: 3vh;
+  height: 4vh;
   outline: none;
   border: 1px solid lightgray;
   background-color: transparent;
+  transition: background-color .3s ease;
+}
+.book:hover{
+  border: 1px solid #ccc;
+  z-index: 1;
+  border-radius: 5px;
+  box-shadow: 2px 3px 5px rgba(0,0,0,.5);
+}
+.button__buy:hover{
+  background-color: rgb(24, 230, 58);
+  color: rgb(3, 3, 3);
+  border-color: rgb(3, 77, 15);
 }
 </style>
