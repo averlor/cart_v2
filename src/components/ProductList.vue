@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-      <div class="books" v-for="book in books" :key="book.id">
+    {{ this.genre }}  -  {{ this.searchTerm }}  -  {{ this.filter }}
+      <div class="books" v-for="book in filterSearch" :key="book.id">
         <div class="book">
           <img :src="book.imageUrl" alt="Тут картинка" class="book__image">
           <p class="book__title">{{ book.title }}</p>
@@ -14,10 +15,49 @@
 <script>
 export default {
   name: 'product-list',
+  update() {
+    console.log(this.books)
+  },
   computed: {
     books() {
-      console.log(this.$store.getters.GET_BOOKS)
       return this.$store.getters.GET_BOOKS
+    },
+    // FIXME: do filter with vuex
+    filterSearch() {
+      // return this.$store.getters.FILTER_BY_SEARCH
+      let books = this.books
+      if (this.searchTerm) {
+        // FIXME: don't work
+        // this.$store.getters.FILTER_BY_SEARCH
+        books = books.filter(book => book.title.toLowerCase().indexOf(this.searchTerm.toLowerCase()) >= 0)
+      }
+      if (this.genre.length) {
+        books = books.filter(book => this.genre.filter(val => book.genre.indexOf(val) !== -1).length >0)
+      }
+      if (this.filter === 'lowest') {
+        this.$store.getters.SORT_BOOK_LOWEST
+      } else {
+        this.$store.getters.SORT_BOOK_HIGHEST
+      }
+
+      return books;
+    },
+    filter() {
+      return this.$store.getters.GET_FILTER
+    },
+    searchTerm() {
+      return this.$store.getters.GET_SEARCHTERM
+    },
+    genre() {
+      return this.$store.getters.GET_GENRE
+    },
+    filterBooks() {
+      return {
+        if (searchTerm) {
+          console.log(searchTerm)
+          return this.$store.getters.GET_SEARCHTERM
+        }
+      }
     }
   },
   methods: {
@@ -81,10 +121,24 @@ export default {
   z-index: 1;
   border-radius: 5px;
   box-shadow: 2px 3px 5px rgba(0,0,0,.5);
+  font-weight: 600;
 }
 .button__buy:hover{
   background-color: rgb(24, 230, 58);
   color: rgb(3, 3, 3);
   border-color: rgb(3, 77, 15);
+}
+
+/* for small screen */
+@media all and (max-width: 500px){
+  .container{
+    grid-template-columns: 1fr;
+  }
+  .books{
+    width: 100%;
+  }
+  .book{
+    align-content: flex-start;
+  }
 }
 </style>
