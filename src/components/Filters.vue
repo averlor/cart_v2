@@ -24,8 +24,8 @@
 
         <!-- Filter cost -->
         <div class="container__cost">
-            <select name="" id="" v-model="filter" @onchange="sortCost($event)">
-                <option disabled value="">Sort by</option>
+            <select name="" id="" v-model="filter">
+                <option selected disabled value="">Sort by</option>
                 <option value="lowest">Lowest</option>
                 <option value="highest">Highest</option>
             </select>
@@ -40,12 +40,38 @@
 <script>
 
 export default {
-    data() {
-        return {
-            genre: [],
-            expanded: false,
-            searchTerm: null,
-            filter: ''
+    computed: {
+        genre: {
+            get() {
+                return this.$store.getters.GET_GENRE
+            },
+            set(newValue) {
+                this.$store.commit('SET_GENRE', newValue)
+            }
+        },
+        expanded:{
+            get() {
+                return this.$store.getters.GET_EXPANDED
+            },
+            set(newValue) {
+                this.$store.commit('SET_EXPANDED', newValue)
+            }
+        },
+        searchTerm:{
+            get() {
+                return this.$store.getters.GET_SEARCHTERM
+            },
+            set(newValue) {
+                this.$store.commit('SET_SEARCHTERM', newValue)
+            }
+        },
+        filter: {
+            get() {
+                return this.$store.getters.GET_FILTER
+            },
+            set(newValue) {
+                this.$store.commit('SET_FILTER', newValue)
+            }
         }
     },
     methods: {
@@ -57,15 +83,6 @@ export default {
             } else {
                 checkboxes.style.display = "none";
                 this.expanded = false;
-            }
-        },
-        sortCost(event) {
-            // FIX: uncorrectly filtr: don't look event and handler
-            this.filter = event
-            if (this.filter.toLowerCase() === 'lowest') {
-                this.$store.commit('SORT_BOOK_LOWEST')
-            } else {
-                this.$store.commit('SORT_BOOK_HIGHEST')
             }
         }
     }
