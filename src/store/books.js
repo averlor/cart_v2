@@ -2,27 +2,51 @@ import Vue from 'vue'
 
 export default{
     state: {
-        // FIX: replace store on connect to firebase
+        genre: [],
+        expanded: false,
+        searchTerm: null,
+        filter: '',
         books: []
     },
 
     getters: {
-        GET_BOOKS: state => state.books
-    },
+        // get variables
+        GET_BOOKS: state => state.books,
+        GET_GENRE: state => state.genre,
+        GET_EXPANDED: state => state.expanded,
+        GET_SEARCHTERM: state => state.searchTerm,
+        GET_FILTER: state => state.filter,
 
-    mutations: {
-        SET_BOOKS(state, payload) {
-            state.books = payload
+        // filter
+        FILTER_BY_SEARCH: state => {
+            state.books.filter(book => book.title.toLowerCase().indexOf(state.searchTerm.toLowerCase()) >= 0)
         },
-        SORT_BOOK_LOWEST(state) {
+        SORT_BOOK_LOWEST: state => {
             state.books.sort(function(a,b) {
                 return a.cost - b.cost
             })
         },
-        SORT_BOOK_HIGHEST(state) {
+        SORT_BOOK_HIGHEST: state => {
             state.books.sort(function(a,b) {
                 return b.cost - a.cost
             })
+        }
+    },
+    mutations: {
+        SET_BOOKS(state, payload) {
+            state.books = payload
+        },
+        SET_GENRE(state, payload) {
+            state.genre = payload
+        },
+        SET_EXPANDED(state, payload) {
+            state.expanded = payload
+        },
+        SET_SEARCHTERM(state, payload) {
+            state.searchTerm = payload
+        },
+        SET_FILTER(state, payload) {
+            state.filter = payload
         }
     },
 
