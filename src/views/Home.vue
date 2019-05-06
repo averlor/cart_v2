@@ -48,20 +48,20 @@ export default {
 <style scoped>
 .wrapper{
   width: 95vw;
+  display: grid;
+  grid-template-rows: 5vh 1fr 5vh;
 }
 header{
-  height: 3vh;
   margin: 0 auto 1vh auto;
 }
 .wrapper__content{
-  height: 85vh;
   margin: 3vh auto auto 0;
 }
 .product{
   margin: 2vh auto;
 }
 footer{
-  height: 1vh;
+  width: 100%;
   margin: 2vh auto;
   border-top: 1px solid gray;
 }
