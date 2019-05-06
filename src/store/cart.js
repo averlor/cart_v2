@@ -27,7 +27,6 @@ export default{
             let index = state.cart.indexOf(payload)
 
             if (index > -1) {
-                // TODO: think about quantity => if quantity > 1, then product.quantity--
                 let product = state.cart[index]
                 if (product.quantity > 1) {
                     product.quantity--;
