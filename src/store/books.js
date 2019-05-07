@@ -23,6 +23,8 @@ export default{
         GET_EXPANDED: state => state.expanded,
         GET_SEARCHTERM: state => state.searchTerm,
         GET_SORT: state => state.sort,
+
+        // FIXME: uncorrectly work: does not display products if one of the filters is empty
         FILTER: state => state.books.filter(book => book.title.indexOf(state.searchTerm) >= 0).filter(book => state.genre.filter(val => book.genre.indexOf(val) !== -1).length > 0).sort((a, b) => {
             switch (state.sort) {
                 case '' : break;
