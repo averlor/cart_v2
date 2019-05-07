@@ -9,7 +9,7 @@
 <script>
 
 export default {
-    name: 'footer',
+    name: 'footer-site',
     computed: {
         countBooks() {
             return this.$store.getters.GET_BOOKS.length
