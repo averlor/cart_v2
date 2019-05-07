@@ -5,32 +5,31 @@ export default{
         genre: [],
         expanded: false,
         searchTerm: null,
-        filter: '',
+        sort: '',
         books: []
     },
 
     getters: {
         // get variables
-        GET_BOOKS: state => state.books,
+        // TODO: to add filter by genre, filter by search and sort
+        GET_BOOKS: state => state.books.sort((a,b) => {
+            switch (state.sort) {
+                case '': console.log('how in base'); break;
+                case 'lowest': return a.cost-b.cost;
+                case 'highest': return b.cost-a.cost
+            }
+        }),
         GET_GENRE: state => state.genre,
         GET_EXPANDED: state => state.expanded,
         GET_SEARCHTERM: state => state.searchTerm,
-        GET_FILTER: state => state.filter,
-
-        // filter
-        FILTER_BY_SEARCH: state => {
-            state.books.filter(book => book.title.toLowerCase().indexOf(state.searchTerm.toLowerCase()) >= 0)
-        },
-        SORT_BOOK_LOWEST: state => {
-            state.books.sort(function(a,b) {
-                return a.cost - b.cost
-            })
-        },
-        SORT_BOOK_HIGHEST: state => {
-            state.books.sort(function(a,b) {
-                return b.cost - a.cost
-            })
-        }
+        GET_SORT: state => state.sort,
+        FILTER: state => state.books.filter(book => book.title.indexOf(state.searchTerm) >= 0).filter(book => state.genre.filter(val => book.genre.indexOf(val) !== -1).length > 0).sort((a, b) => {
+            switch (state.sort) {
+                case '' : break;
+                case 'lowest' : return a.cost-b.cost;
+                case 'highest' : return b.cost-a.cost
+            }
+        })
     },
     mutations: {
         SET_BOOKS(state, payload) {
@@ -45,8 +44,8 @@ export default{
         SET_SEARCHTERM(state, payload) {
             state.searchTerm = payload
         },
-        SET_FILTER(state, payload) {
-            state.filter = payload
+        SET_SORT(state, payload) {
+            state.sort = payload
         }
     },
 
