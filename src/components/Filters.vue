@@ -24,7 +24,7 @@
 
         <!-- Filter cost -->
         <div class="container__cost">
-            <select name="" id="" v-model="filter">
+            <select name="" id="" v-model="sort">
                 <option selected disabled value="">Sort by</option>
                 <option value="lowest">Lowest</option>
                 <option value="highest">Highest</option>
@@ -65,12 +65,12 @@ export default {
                 this.$store.commit('SET_SEARCHTERM', newValue)
             }
         },
-        filter: {
+        sort: {
             get() {
-                return this.$store.getters.GET_FILTER
+                return this.$store.getters.GET_SORT
             },
             set(newValue) {
-                this.$store.commit('SET_FILTER', newValue)
+                this.$store.commit('SET_SORT', newValue)
             }
         }
     },
