@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    {{ this.genre }}  -  {{ this.searchTerm }}  -  {{ this.sort }}
-      <div class="books" v-for="book in filterBooks" :key="book.id">
+      <div class="books" v-for="book in books" :key="book.id">
         <div class="book">
           <img :src="book.imageUrl" alt="Тут картинка" class="book__image">
+          <p class="book__genre">{{ book.genre[0] }}</p>
           <p class="book__title">{{ book.title }}</p>
           <p class="book__cost">Цена: {{ book.cost }} &#8381;</p>
           <button @click.prevent="addToCart(book)" class="book__button button__buy">BUY</button>
@@ -15,27 +15,9 @@
 <script>
 export default {
   name: 'product-list',
-  update() {
-    console.log(this.books)
-  },
   computed: {
     books() {
-      console.log(this.$store.getters.GET_BOOKS)
       return this.$store.getters.GET_BOOKS
-    },
-    FILTER() {
-      // console.log(this.$store.getters.FILTER)
-      return this.$store.getters.FILTER
-    },
-    // FIXME: do filter with vuex
-    filterBooks() {
-      let fbooks;
-      if (this.searchTerm === '' && this.genre === '') {
-        fbooks = this.books
-      } else {
-        fbooks = this.FILTER
-      }
-      return fbooks;
     },
     sort() {
       return this.$store.getters.GET_SORT
@@ -75,6 +57,12 @@ export default {
 .book__image{
   margin: 0 auto 1vh auto;
   padding-top: 1vh;
+}
+.book__genre{
+  width: 90%;
+  margin: 0 auto 1vh auto;
+  text-align: center;
+  font: 200 1em Arial;
 }
 .book__title{
   width: 90%;
@@ -116,6 +104,12 @@ export default {
   border-color: rgb(3, 77, 15);
 }
 
+/* for medium screen */
+@media all and (max-width: 800px) and (min-width: 501px){
+    .container{
+      grid-template-columns: repeat(2, 1fr)
+    }
+}
 /* for small screen */
 @media all and (max-width: 500px){
   .container{
