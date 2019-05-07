@@ -10,11 +10,12 @@ export default{
     },
 
     getters: {
-        // get variables
-        // TODO: to add filter by genre, filter by search and sort
-        GET_BOOKS: state => state.books.sort((a,b) => {
+        GET_BOOKS: state => state.books.filter(book => {
+            return state.searchTerm !== null ? book.title.toLowerCase().indexOf(state.searchTerm.toLowerCase()) >= 0 : state.genre.length === 0 ? true : state.genre.includes(book.genre[0])
+        })
+        .sort((a,b) => {
             switch (state.sort) {
-                case '': console.log('how in base'); break;
+                case '':  break;
                 case 'lowest': return a.cost-b.cost;
                 case 'highest': return b.cost-a.cost
             }
@@ -22,16 +23,7 @@ export default{
         GET_GENRE: state => state.genre,
         GET_EXPANDED: state => state.expanded,
         GET_SEARCHTERM: state => state.searchTerm,
-        GET_SORT: state => state.sort,
-
-        // FIXME: uncorrectly work: does not display products if one of the filters is empty
-        FILTER: state => state.books.filter(book => book.title.indexOf(state.searchTerm) >= 0).filter(book => state.genre.filter(val => book.genre.indexOf(val) !== -1).length > 0).sort((a, b) => {
-            switch (state.sort) {
-                case '' : break;
-                case 'lowest' : return a.cost-b.cost;
-                case 'highest' : return b.cost-a.cost
-            }
-        })
+        GET_SORT: state => state.sort
     },
     mutations: {
         SET_BOOKS(state, payload) {
