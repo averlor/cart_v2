@@ -1,4 +1,12 @@
-# cart
+# cart v.2.0
+
+<p align="center">
+  <a href="http://averlor-cart.surge.sh/" target="_blank">
+    <img src="public/demo.png">
+    <br>
+    Live Demo
+  </a>
+</p>
 
 ## Project setup
 ```
