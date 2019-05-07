@@ -20,20 +20,22 @@ export default {
   },
   computed: {
     books() {
+      console.log(this.$store.getters.GET_BOOKS)
       return this.$store.getters.GET_BOOKS
     },
     FILTER() {
+      // console.log(this.$store.getters.FILTER)
       return this.$store.getters.FILTER
     },
     // FIXME: do filter with vuex
     filterBooks() {
-      let books;
+      let fbooks;
       if (this.searchTerm === '' && this.genre === '') {
-        books = this.books
+        fbooks = this.books
       } else {
-        books = this.FILTER
+        fbooks = this.FILTER
       }
-      return books;
+      return fbooks;
     },
     sort() {
       return this.$store.getters.GET_SORT
