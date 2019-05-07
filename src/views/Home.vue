@@ -8,7 +8,7 @@
       <section class="filter"><Filters/></section>
       <section class="product"><ProductList @openCloseCart="openCloseCart"/></section>
     </section>
-    <footer>
+    <footer class="footer">
       <Info/>
     </footer>
   </div>
@@ -60,7 +60,7 @@ header{
 .product{
   margin: 2vh auto;
 }
-footer{
+.footer{
   width: 100%;
   margin: 2vh auto;
   border-top: 1px solid gray;
