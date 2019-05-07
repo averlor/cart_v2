@@ -12,7 +12,7 @@
                 <label for="one">
                     <input type="checkbox" id="one" value="Роман" v-model="genre"/>Роман</label>
                 <label for="two">
-                    <input type="checkbox" id="two" value="Детектив" v-model="genre"/>Детектив</label>
+                    <input type="checkbox" id="two" value="Детективы" v-model="genre"/>Детективы</label>
                 <label for="three">
                     <input type="checkbox" id="three" value="Приключения" v-model="genre"/>Приключения</label>
                 <label for="four">
