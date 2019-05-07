@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    {{ this.genre }}  -  {{ this.searchTerm }}  -  {{ this.filter }}
-      <div class="books" v-for="book in filterSearch" :key="book.id">
+    {{ this.genre }}  -  {{ this.searchTerm }}  -  {{ this.sort }}
+      <div class="books" v-for="book in filterBooks" :key="book.id">
         <div class="book">
           <img :src="book.imageUrl" alt="Тут картинка" class="book__image">
           <p class="book__title">{{ book.title }}</p>
@@ -22,42 +22,27 @@ export default {
     books() {
       return this.$store.getters.GET_BOOKS
     },
+    FILTER() {
+      return this.$store.getters.FILTER
+    },
     // FIXME: do filter with vuex
-    filterSearch() {
-      // return this.$store.getters.FILTER_BY_SEARCH
-      let books = this.books
-      if (this.searchTerm) {
-        // FIXME: don't work
-        // this.$store.getters.FILTER_BY_SEARCH
-        books = books.filter(book => book.title.toLowerCase().indexOf(this.searchTerm.toLowerCase()) >= 0)
-      }
-      if (this.genre.length) {
-        books = books.filter(book => this.genre.filter(val => book.genre.indexOf(val) !== -1).length >0)
-      }
-      if (this.filter === 'lowest') {
-        this.$store.getters.SORT_BOOK_LOWEST
+    filterBooks() {
+      let books;
+      if (this.searchTerm === '' && this.genre === '') {
+        books = this.books
       } else {
-        this.$store.getters.SORT_BOOK_HIGHEST
+        books = this.FILTER
       }
-
       return books;
     },
-    filter() {
-      return this.$store.getters.GET_FILTER
+    sort() {
+      return this.$store.getters.GET_SORT
     },
     searchTerm() {
       return this.$store.getters.GET_SEARCHTERM
     },
     genre() {
       return this.$store.getters.GET_GENRE
-    },
-    filterBooks() {
-      return {
-        if (searchTerm) {
-          console.log(searchTerm)
-          return this.$store.getters.GET_SEARCHTERM
-        }
-      }
     }
   },
   methods: {
