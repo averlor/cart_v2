@@ -180,10 +180,16 @@ export default {
     background-color: gold;
     color: #000;
 }
+/* for medium screen */
+@media all and (max-width: 800px) and (min-width: 501px) {
+    .container__cart{
+        width: 100vw;
+    }
+}
 /* for small screen */
 @media all and (max-width: 450px) {
     .container__cart{
-        width: 100vh;
+        width: 100vw;
     }
     /* .container__cart__head__close{
         position: absolute;
